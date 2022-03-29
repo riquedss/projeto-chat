@@ -10,23 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_28_192844) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_29_171751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "message_sents", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.bigint "message_id"
-    t.index ["message_id"], name: "index_message_sents_on_message_id"
-    t.index ["user_id"], name: "index_message_sents_on_user_id"
-  end
 
   create_table "messages", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,6 +32,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_192844) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "message_sents", "messages"
-  add_foreign_key "message_sents", "users"
+  add_foreign_key "messages", "users"
 end
