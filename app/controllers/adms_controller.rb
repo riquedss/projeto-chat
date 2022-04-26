@@ -19,8 +19,6 @@ class AdmsController < ApplicationController
   end
 
   def create
-    @params_adm[:kind] = 1
-
     @adm = User.new(@params_adm)
     if @adm.save
       render json: @adm, status: :created

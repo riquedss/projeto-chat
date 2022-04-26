@@ -11,7 +11,8 @@ class ApplicationController < ActionController::API
     end
 
     def is_adm_authenticated?
-        if !current_user.is_adm?
+
+        if !current_user.adm?
             render json: { message: "no admin permission." }, status: 403
         end
     end
@@ -19,7 +20,7 @@ class ApplicationController < ActionController::API
     def is_adm_authenticated_or_is_my_message
         @message = Message.find(params[:id])
 
-        if !(@message and (current_user.is_adm? or current_user.id == @message.user_id))
+        unless @message and (current_user.adm? or current_user.id == @message.user_id)
             render json: { message: "Without permission" }, status: 403
         end
     end
